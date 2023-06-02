@@ -1,0 +1,4 @@
+---
+postfix_compatibility_level: "2"
+postfix_readme_directory: "/usr/share/doc/postfix-2.10.1/README_FILES"
+postfix_sample_directory: "/usr/share/doc/postfix-2.10.1/samples"

@@ -1,2 +1,10 @@
 ---
-# vars file for postfix
+# Default postfix packages to install
+postfix_packages:
+  - postfix
+
+# Name of the postfix systemd service
+postfix_service: postfix
+
+# Default alias file
+postfix_alias_path: /etc/aliases

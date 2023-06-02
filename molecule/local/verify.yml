@@ -1,0 +1,97 @@
+---
+- name: Verify the server converged to send-only MTA using a relay host.
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Option myhostname is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^myhostname = secondary.example.com"
+        state: absent
+      check_mode: true
+      register: myhostname
+      changed_when: false
+      failed_when: not myhostname.found
+
+    - name: Option mydomain is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^mydomain = test.com"
+        state: absent
+      check_mode: true
+      register: mydomain
+      changed_when: false
+      failed_when: not mydomain.found
+
+    - name: Option myorigin is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^myorigin = test.com"
+        state: absent
+      check_mode: true
+      register: myorigin
+      changed_when: false
+      failed_when: not myorigin.found
+
+    - name: Option mydestination is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^mydestination = test.com, example.com, localhost.test.com, localhost"
+        state: absent
+      check_mode: true
+      register: mydestination
+      changed_when: false
+      failed_when: not mydestination.found
+
+    - name: Option inet_interfaces is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^inet_interfaces = 127.0.0.1"
+        state: present
+      check_mode: true
+      register: inet_interfaces
+      failed_when: inet_interfaces is changed
+
+    - name: Option inet_protocols is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^inet_protocols = ipv4"
+        state: present
+      check_mode: true
+      register: inet_protocols
+      failed_when: inet_protocols is changed
+
+    - name: Relay host is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/aliases
+        regexp: "^relayhost = [smtp.example.com]"
+        state: present
+      check_mode: true
+      register: relayhost
+      failed_when: relayhost is changed
+
+    - name: Alias set for local user www
+      ansible.builtin.lineinfile:
+        path: /etc/aliases
+        regexp: "^www:    user1@test.com"
+        state: present
+      check_mode: true
+      register: alias
+      failed_when: alias is changed
+
+    - name: Alias set for local user root
+      ansible.builtin.lineinfile:
+        path: /etc/aliases
+        regexp: "^root:    user2@test.com, user3@example.com"
+        state: present
+      check_mode: true
+      register: alias
+      failed_when: alias is changed
+
+    - name: Postfix service is running
+      ansible.builtin.wait_for:
+        port: 25
+        timeout: 30
+      register: port_check
+      failed_when: port_check.failed

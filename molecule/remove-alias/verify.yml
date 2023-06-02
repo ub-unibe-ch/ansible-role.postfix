@@ -1,0 +1,13 @@
+---
+- name: Verify no alias for root is configured
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: No mail alias for user root
+      ansible.builtin.lineinfile:
+        path: /etc/aliases
+        regexp: "^root:"
+        state: absent
+      check_mode: true
+      register: aliases
+      failed_when: aliases is changed

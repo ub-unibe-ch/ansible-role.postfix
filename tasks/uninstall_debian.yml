@@ -1,0 +1,9 @@
+---
+# It's sufficient to only remove the packages. The service gets automatically
+# stopped and removed from systemd.
+- name: Remove postfix from apt-based system
+  ansible.builtin.apt:
+    name: "{{ postfix_packages }}"
+    state: "absent"
+    autoremove: true
+    purge: true

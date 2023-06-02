@@ -1,2 +1,47 @@
 ---
-# defaults file for postfix
+
+# The myhostname parameter specifies the internet hostname of this mail system.
+postfix_myhostname: "{{ ansible_fqdn }}"
+
+# The mydomain parameter specifies the local internet domain name.
+postfix_mydomain: "undef"
+
+# The myorigin parameter specifies the domain that locally-posted mail appears
+# to come from.
+postfix_myorigin: "undef"
+
+# The mydestination parameter specifies the list of domains that this
+# machine considers itself the final destination for.
+postfix_mydestination: "$myhostname, localhost.$mydomain, localhost"
+
+# The inet_interfaces parameter specifies the network interface
+# addresses that this mail system receives mail on.
+postfix_inet_interfaces: localhost
+
+# Enable IPv4, and IPv6 if supported; valid value include `all`, `ipv4`,
+postfix_inet_protocols: all
+
+# Dictionary with mail aliases that are managed in /etc/aliases
+postfix_alias_map: {}
+
+# The relayhost parameter specifies the default host to send mail to.
+# Specify a domain, host, host:port, [host]:port, [address] or [address]:port;
+# the form [host] turns off MX lookups.
+#postfix_relayhost = $mydomain
+#postfix_relayhost = [gateway.my.domain]
+#postfix_relayhost = [an.ip.add.ress]
+postfix_relayhost: undef
+
+# Set initial postfix state. Recommended values: `started` or `stopped`
+postfix_state: started
+
+# Set initial postfix service status. Recommended values: `yes` or `no`
+postfix_enabled: true
+
+# Set postfix state when configuration changes are made. Recommended values:
+# `restarted` or `reloaded`
+postfix_restart_state: restarted
+
+# postfix package state; use `present` to make sure it's installed, or `latest`
+# if you want to upgrade or switch versions using a new repo.
+postfix_packages_state: present

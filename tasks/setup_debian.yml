@@ -1,0 +1,22 @@
+---
+- name: Check if supported platform
+  ansible.builtin.assert:
+    that:
+      - ansible_distribution == "Ubuntu"
+      - ansible_distribution_version is version('20.04', '==') or
+        ansible_distribution_version is version('22.04', '==')
+    success_msg: "Version {{ ansible_distribution_version }} is supported."
+    fail_msg: "Version {{ ansible_distribution_version }} is not supported."
+
+- name: Load system-specific variables
+  ansible.builtin.include_vars: "ubuntu{{ ansible_distribution_major_version }}.yml"
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install postfix
+  ansible.builtin.apt:
+    name: "{{ postfix_packages }}"
+    state: "{{ postfix_packages_state }}"

@@ -1,0 +1,11 @@
+---
+- name: Converge to state where postfix is removed
+  hosts: all
+
+  tasks:
+    - name: "Remove Postfix from the system"
+      ansible.builtin.include_role:
+        name: "unibe_idsys.postfix"
+      vars:
+        postfix_service_state: stopped
+        postfix_packages_state: absent

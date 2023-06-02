@@ -1,0 +1,16 @@
+---
+- name: Check if supported platform
+  ansible.builtin.assert:
+    that:
+      - ansible_distribution_version is version('7', '>=')
+      - ansible_distribution_version is version('10', '<')
+    success_msg: "Version {{ ansible_facts['distribution_version'] }} is supported."
+    fail_msg: "Version {{ ansible_facts['distribution_version'] }} is not supported."
+
+- name: Load system-specific variables
+  ansible.builtin.include_vars: "redhat{{ ansible_distribution_major_version }}.yml"
+
+- name: Install postfix
+  ansible.builtin.package:
+    name: "{{ postfix_packages }}"
+    state: "{{ postfix_packages_state }}"

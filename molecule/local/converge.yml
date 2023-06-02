@@ -1,0 +1,20 @@
+---
+- name: Converge to a IPv4-send-only Postfix Server using a relay host.
+  hosts: all
+
+  vars:
+    postfix_myhostname: secondary.example.com
+    postfix_mydomain: test.com
+    postfix_myorigin: test.com
+    postfix_mydestination: "test.com, example.com, localhost.test.com, localhost"
+    postfix_inet_interfaces: "127.0.0.1"
+    postfix_inet_protocols: "ipv4"
+    postfix_relayhost: "[smtp.example.example.com]"
+    postfix_alias_map:
+      www: "user1@test.com"
+      root: ["user2@test.com", "user3@example.com"]
+
+  tasks:
+    - name: "Include unibe_idsys.postfix"
+      ansible.builtin.include_role:
+        name: "unibe_idsys.postfix"

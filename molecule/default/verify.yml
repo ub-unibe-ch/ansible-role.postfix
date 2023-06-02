@@ -1,20 +1,77 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
-- name: Verify
+- name: Verify the Postfix server converged to the role defaults.
   hosts: all
   gather_facts: false
-  tasks:
-    - name: Example assertion
-      ansible.builtin.assert:
-        that: true
 
-    - name: Postfix service is running
-      ansible.builtin.wait_for:
-        port: 25
-        timeout: 30
-      register: port_check
-      failed_when: port_check.failed
+  tasks:
+    - name: Option myhostname defaults to ansible_fqdn
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^myhostname = mail.test"
+        state: absent
+      check_mode: true
+      register: myhostname
+      changed_when: false
+      failed_when: not myhostname.found
+
+    - name: Option mydomain defaults to test
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^mydomain = test"
+        state: absent
+      check_mode: true
+      register: mydomain
+      changed_when: false
+      failed_when: mydomain is changed
+
+    - name: Option myorigin defaults to not set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^myorigin ="
+        state: absent
+      check_mode: true
+      register: myorigin
+      changed_when: false
+      failed_when: myorigin.found
+
+    - name: Option mydestination defaults to expected default value
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^mydestination = \\$myhostname, localhost.\\$mydomain, localhost"
+        state: absent
+      check_mode: true
+      register: mydestination
+      changed_when: false
+      failed_when: not mydestination.found
+
+    - name: Option inet_interfaces defaults to localhost
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^inet_interfaces = localhost"
+        state: absent
+      check_mode: true
+      register: inet_interfaces
+      changed_when: false
+      failed_when: not inet_interfaces.found
+
+    - name: Option inet_protocols defaults to all
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^inet_protocols = all"
+        state: absent
+      check_mode: true
+      register: inet_protocols
+      changed_when: false
+      failed_when: not inet_protocols.found
+
+    - name: No relay host is set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^relayhost ="
+        state: absent
+      check_mode: true
+      register: relayhost
+      failed_when: relayhost is changed
 
     - name: No mail alias for user root
       ansible.builtin.lineinfile:
@@ -24,3 +81,10 @@
       check_mode: true
       register: aliases
       failed_when: aliases is changed
+
+    - name: Postfix service is running
+      ansible.builtin.wait_for:
+        port: 25
+        timeout: 30
+      register: port_check
+      failed_when: port_check.failed

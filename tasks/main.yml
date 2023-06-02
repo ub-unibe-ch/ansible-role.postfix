@@ -1,3 +1,35 @@
 ---
-- name: Load platform-specific tasks
-  ansible.builtin.include_tasks: "{{ ansible_distribution | lower }}.yml"
+- name: Postfix is going to be deployed on the system
+  when: postfix_packages_state != "absent"
+  block:
+    - name: Include OS-specific tasks
+      ansible.builtin.include_tasks: "setup_{{ ansible_os_family | lower }}.yml"
+
+    - name: Create /etc/postfix/main.cf
+      ansible.builtin.template:
+        src: "main.cf-{{ ansible_os_family | lower }}.j2"
+        dest: /etc/postfix/main.cf
+        owner: root
+        group: root
+        setype: postfix_etc_t
+        mode: 0644
+      notify: restart-postifx
+
+    - name: Ensure Postfix is started and enabled at boot.
+      ansible.builtin.service:
+        name: "{{ postfix_service }}"
+        state: "{{ postfix_state }}"
+        enabled: "{{ postfix_enabled }}"
+
+    - name: Manage entries in /etc/aliases
+      ansible.builtin.lineinfile:
+        path: /etc/aliases
+        regexp: "{{ item.key }}:"
+        line: "{{ item.key }}:    {{ item.value if (item.value is string) else item.value | join(', ') }}"
+        state: "{{ 'absent' if (item.value == 'undef') else 'present' }}"
+      loop: "{{ postfix_alias_map | dict2items }}"
+      notify: rebuild_aliases_db
+
+- name: Postfix is going to be removed from the system
+  ansible.builtin.include_tasks: "uninstall_{{ ansible_os_family | lower }}.yml"
+  when: postfix_packages_state == "absent"
