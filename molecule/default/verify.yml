@@ -82,6 +82,14 @@
       register: aliases
       failed_when: aliases is changed
 
+    - name: No sender_canonical file is present
+      ansible.builtin.file:
+        path: /etc/postfix/sender_canonical
+        state: absent
+      check_mode: true
+      register: sender_canonical
+      failed_when: sender_canonical is changed
+
     - name: Postfix service is running
       ansible.builtin.wait_for:
         port: 25

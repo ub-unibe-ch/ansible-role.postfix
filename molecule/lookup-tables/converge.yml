@@ -1,0 +1,13 @@
+---
+- name: Deploy different Postfix lookup tables
+
+  hosts: all
+  vars:
+    postfix_sender_canonicals:
+      - root: elmar.fudge@example.com
+      - user1@test.com: road.runner@example.com
+
+  tasks:
+    - name: "Include unibe_idsys.postfix"
+      ansible.builtin.include_role:
+        name: "unibe_idsys.postfix"

@@ -6,5 +6,8 @@ postfix_packages:
 # Name of the postfix systemd service
 postfix_service: postfix
 
-# Default alias file
+# Default database files
 postfix_alias_path: /etc/aliases
+
+__postfix_sender_canonical_map: ""
+__postfix_sender_canonical_path: /etc/postfix/sender_canonical

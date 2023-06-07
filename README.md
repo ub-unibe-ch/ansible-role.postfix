@@ -114,6 +114,23 @@ Use the local account you want to forward mails for as the key and either a
 string or list of strings for the mail addresses to forward these mails to. In
 the above example, mails to root are forwarded to two external addresses instead.
 
+#### sender_canonical map
+
+    postfix_sender_canonicals: []
+
+This allows setting sender canonical addresses in the database
+`hash:/etc/postfix/sender_canonical` in order to rewrite sender addresses to be
+sure bounces can be routed back to valid address.
+This can be used to rewrite local accounts:
+
+Examples:
+
+    postfix_sender_canonicals:
+      - root: existing.user@example.com
+
+By adding mappings here the hash map is automatically added to the
+sender_canonical_map configuration option of Postfix.
+
 ### Configuring Package and Service State
 
     postfix_enabled: true

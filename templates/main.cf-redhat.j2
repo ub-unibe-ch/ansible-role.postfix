@@ -749,3 +749,7 @@ smtp_tls_CAfile = /etc/pki/tls/certs/ca-bundle.crt
 smtp_tls_security_level = may
 meta_directory = /etc/postfix
 shlib_directory = /usr/lib64/postfix
+
+{% if __postfix_sender_canonical_map != "" %}
+sender_canonical_map = {{ __postfix_sender_canonical_map }}
+{% endif %}

@@ -1,0 +1,25 @@
+---
+- name: Verify the different lookup maps work correctly
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Sender canonical for root is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/sender_canonical
+        regexp: "^root\\s+elmar.fudge@example.com$"
+        state: absent
+      check_mode: true
+      register: sender_canonical
+      changed_when: false
+      failed_when: not sender_canonical.found
+
+    - name: Sender canonical for user1@test.com is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/sender_canonical
+        regexp: "^user1@test.com\\s+road.runner@example.com$"
+        state: absent
+      check_mode: true
+      register: sender_canonical
+      changed_when: false
+      failed_when: not sender_canonical.found

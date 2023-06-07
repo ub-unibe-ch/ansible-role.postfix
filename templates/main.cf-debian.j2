@@ -54,3 +54,7 @@ mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = {{ postfix_inet_interfaces }}
 inet_protocols = {{ postfix_inet_protocols }}
+
+{% if __postfix_sender_canonical_map != "" %}
+sender_canonical_map = {{ __postfix_sender_canonical_map }}
+{% endif %}

@@ -24,6 +24,9 @@ postfix_inet_protocols: all
 # Dictionary with mail aliases that are managed in /etc/aliases
 postfix_alias_map: {}
 
+# Array with sender canoncial mappings
+postfix_sender_canonicals: []
+
 # The relayhost parameter specifies the default host to send mail to.
 # Specify a domain, host, host:port, [host]:port, [address] or [address]:port;
 # the form [host] turns off MX lookups.
