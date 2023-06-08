@@ -9,6 +9,10 @@
       ansible.builtin.import_tasks:
         file: sender_canonical_map.yml
 
+    - name: Process ldap-sender_canonical.cf
+      ansible.builtin.import_tasks:
+        file: ldap_sender_canonical_cf.yml
+
     - name: Create /etc/postfix/main.cf
       ansible.builtin.template:
         src: "main.cf-{{ ansible_os_family | lower }}.j2"

@@ -1,0 +1,29 @@
+---
+- name: Manage configuration parameter file
+  when: postfix_sender_canonical_ldap_config.server_host is defined
+  notify:
+    - reload-postfix
+  block:
+    - name: Prepare template variable
+      ansible.builtin.set_fact:
+        __postfix_config_params: "{{ postfix_sender_canonical_ldap_config }}"
+
+    - name: Add table to sender_canonical_map in main.cf
+      ansible.builtin.set_fact:
+        __postfix_sender_canonical_maps: "{{ __postfix_sender_canonical_maps + ['ldap:{{ __postfix_sender_canonical_ldap_config_path }}'] }}"
+
+    - name: "Manage entries in {{ __postfix_sender_canonical_ldap_config_path }}"
+      ansible.builtin.template:
+        src: "configfile.j2"
+        dest: "{{ __postfix_sender_canonical_ldap_config_path }}"
+        mode: 0644
+
+- name: Remove mapping files
+  when: postfix_sender_canonical_ldap_config.server_host is not defined
+  notify:
+    - reload-postfix
+  block:
+    - name: Remove map file
+      ansible.builtin.file:
+        path: "{{ __postfix_sender_canonical_ldap_config_path }}"
+        state: absent

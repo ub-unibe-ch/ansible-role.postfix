@@ -9,5 +9,7 @@ postfix_service: postfix
 # Default database files
 postfix_alias_path: /etc/aliases
 
-__postfix_sender_canonical_map: ""
+# sender_canonical related option names and filepaths
+__postfix_sender_canonical_maps: []
 __postfix_sender_canonical_path: /etc/postfix/sender_canonical
+__postfix_sender_canonical_ldap_config_path: /etc/postfix/ldap-sender_canonical.cf

@@ -27,6 +27,9 @@ postfix_alias_map: {}
 # Array with sender canoncial mappings
 postfix_sender_canonicals: []
 
+# Dictionary holding config parameters for the /etc/postfix/ldap-sender_canonical.cf
+postfix_sender_canonical_ldap_config: {}
+
 # The relayhost parameter specifies the default host to send mail to.
 # Specify a domain, host, host:port, [host]:port, [address] or [address]:port;
 # the form [host] turns off MX lookups.

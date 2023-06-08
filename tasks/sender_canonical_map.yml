@@ -5,13 +5,13 @@
     - rebuild_sender_canonical_db
     - reload-postfix
   block:
-    - name: Prepare mappings to internal variable
+    - name: Prepare template variable
       ansible.builtin.set_fact:
         __postfix_mappings: "{{ postfix_sender_canonicals }}"
 
-    - name: Update sender_canonical_map variable
+    - name: Add table to sender_canonical_map in main.cf
       ansible.builtin.set_fact:
-        __postfix_sender_canonical_map: "hash:{{ __postfix_sender_canonical_path }}"
+        __postfix_sender_canonical_maps: "{{ __postfix_sender_canonical_maps + ['hash:{{ __postfix_sender_canonical_path }}'] }}"
 
     - name: "Manage entries in {{ __postfix_sender_canonical_path }}"
       ansible.builtin.template:

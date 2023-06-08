@@ -116,6 +116,8 @@ the above example, mails to root are forwarded to two external addresses instead
 
 #### sender_canonical map
 
+##### hash type map
+
     postfix_sender_canonicals: []
 
 This allows setting sender canonical addresses in the database
@@ -129,6 +131,28 @@ Examples:
       - root: existing.user@example.com
 
 By adding mappings here the hash map is automatically added to the
+sender_canonical_map configuration option of Postfix.
+
+##### ldap type map
+
+    postfix_ldap_sender_canonincal_config: {}
+
+This config dictionary allows to configure lookups of sender_canonicals stored
+in an LDAP directory. Use configuration parameters as described in the official
+documentation on [that topic](https://www.postfix.org/ldap_table.5.html). An
+example using two LDAP servers as a failover setup and transport encryption
+might look as follows:
+
+    postfix_ldap_sender_canonincal_config:
+      server_host: "ldap://ldap01.mycompany.com ldap://ldap02.mycompany.com"
+      start_tls: "yes"
+      version: "3"
+      bind: "no"
+      search_base: "ou=users,dc=mycompany,dc=com"
+      query_filter: "(uid=%s)"
+      result_attribute: "mail"
+
+By adding a configuration here the ldap map is automatically added to the
 sender_canonical_map configuration option of Postfix.
 
 ### Configuring Package and Service State

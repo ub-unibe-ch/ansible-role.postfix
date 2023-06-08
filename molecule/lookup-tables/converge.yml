@@ -6,6 +6,14 @@
     postfix_sender_canonicals:
       - root: elmar.fudge@example.com
       - user1@test.com: road.runner@example.com
+    postfix_sender_canonical_ldap_config:
+      server_host: "ldap://ldap01.mycompany.com"
+      start_tls: "yes"
+      version: "3"
+      bind: "no"
+      search_base: "ou=users,dc=mycompany,dc=com"
+      query_filter: "(uid=%s)"
+      result_attribute: "mail"
 
   tasks:
     - name: "Include unibe_idsys.postfix"
