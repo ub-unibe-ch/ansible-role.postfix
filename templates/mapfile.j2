@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+
+{% for mapping in __postfix_mappings %}
+{% for key, value in mapping.items() %}
+{{ key }}    {{ value }}
+{% endfor %}
+{% endfor %}

@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+
+{% for param, value in __postfix_config_params.items() %}
+{{ param }} = {{ value }}
+{% endfor %}

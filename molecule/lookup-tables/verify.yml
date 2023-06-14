@@ -1,0 +1,55 @@
+---
+- name: Verify the different lookup maps work correctly
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Sender canonical for root is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/sender_canonical
+        regexp: "^root\\s+elmar.fudge@example.com$"
+        state: absent
+      check_mode: true
+      register: sender_canonical
+      changed_when: false
+      failed_when: not sender_canonical.found
+
+    - name: Sender canonical for user1@test.com is correctly set
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/sender_canonical
+        regexp: "^user1@test.com\\s+road.runner@example.com$"
+        state: absent
+      check_mode: true
+      register: sender_canonical
+      changed_when: false
+      failed_when: not sender_canonical.found
+
+    - name: Check ldap-canonical.cf for option start_tls
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/ldap-sender_canonical.cf
+        regexp: "^start_tls = yes$"
+        state: absent
+      check_mode: true
+      register: ldap_option
+      changed_when: false
+      failed_when: not ldap_option.found
+
+    - name: Check ldap-canonical.cf for option result_attribute
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/ldap-sender_canonical.cf
+        regexp: "^result_attribute = mail$"
+        state: absent
+      check_mode: true
+      register: ldap_option
+      changed_when: false
+      failed_when: not ldap_option.found
+
+    - name: Check if both tables are in the sender_canonical_map
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: "^sender_canonical_map = hash:/etc/postfix/sender_canonical, ldap:/etc/postfix/ldap-sender_canonical.cf$"
+        state: absent
+      check_mode: true
+      register: ldap_option
+      changed_when: false
+      failed_when: not ldap_option.found
