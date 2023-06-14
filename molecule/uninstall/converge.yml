@@ -1,9 +1,16 @@
 ---
-- name: Converge to state where postfix is removed
+- name: Converge to state where a previously installed Postfix is removed
   hosts: all
 
   tasks:
-    - name: "Remove Postfix from the system"
+    - name: "Install Postfix with defaults on the system"
+      ansible.builtin.include_role:
+        name: "unibe_idsys.postfix"
+
+    - name: "Flush handlers"
+      ansible.builtin.meta: flush_handlers
+
+    - name: "Remove Postfix from the system again"
       ansible.builtin.include_role:
         name: "unibe_idsys.postfix"
       vars:
