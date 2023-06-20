@@ -16,7 +16,7 @@ postfix_mydestination: "$myhostname, localhost.$mydomain, localhost"
 
 # The inet_interfaces parameter specifies the network interface
 # addresses that this mail system receives mail on.
-postfix_inet_interfaces: localhost
+postfix_inet_interfaces: all
 
 # Enable IPv4, and IPv6 if supported; valid value include `all`, `ipv4`,
 postfix_inet_protocols: all

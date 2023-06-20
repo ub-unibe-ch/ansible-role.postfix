@@ -56,14 +56,14 @@ gateway, you should also include $mydomain.
 
 ### postfix_inet_interfaces
 
-    postfix_inet_interfaces: localhost
+    postfix_inet_interfaces: all
 
 The `inet_interfaces` parameter specifies the network interfaces addresses that
-this mail system receives mail on. The default is to listen only on `localhost`.
-You can specify more than one by comma separating them. Set to `all` for all
-available interfaces or to a comma-separated list of IP addresses. See [postconf
-manpage](https://www.postfix.org/postconf.5.html#inet_interfaces) for the
-details about this option.
+this mail system receives mail on. The default is to listen on `all`. You can
+specify more than one address by comma separating them. Set to `loopback-only`
+to listen only to localhost or to a comma-separated list of IP addresses. See
+[postconf manpage](https://www.postfix.org/postconf.5.html#inet_interfaces) for
+the details about this option.
 
 ### postfix_inet_protocols
 
