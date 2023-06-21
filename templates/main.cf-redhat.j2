@@ -751,5 +751,5 @@ meta_directory = /etc/postfix
 shlib_directory = /usr/lib64/postfix
 
 {% if __postfix_sender_canonical_maps | length > 0 %}
-sender_canonical_map = {{ __postfix_sender_canonical_maps | join(", ") }}
+sender_canonical_maps = {{ __postfix_sender_canonical_maps | join(", ") }}
 {% endif %}

@@ -44,12 +44,12 @@
       changed_when: false
       failed_when: not ldap_option.found
 
-    - name: Check if both tables are in the sender_canonical_map
+    - name: Check if both tables are set in the sender_canonical_map
       ansible.builtin.lineinfile:
         path: /etc/postfix/main.cf
-        regexp: "^sender_canonical_map = hash:/etc/postfix/sender_canonical, ldap:/etc/postfix/ldap-sender_canonical.cf$"
+        regexp: "^sender_canonical_maps = hash:/etc/postfix/sender_canonical, ldap:/etc/postfix/ldap-sender_canonical.cf"
         state: absent
       check_mode: true
-      register: ldap_option
+      register: sender_canonical_maps
       changed_when: false
-      failed_when: not ldap_option.found
+      failed_when: not sender_canonical_maps.found
