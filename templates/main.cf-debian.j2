@@ -56,5 +56,5 @@ inet_interfaces = {{ postfix_inet_interfaces }}
 inet_protocols = {{ postfix_inet_protocols }}
 
 {% if __postfix_sender_canonical_maps | length > 0 %}
-sender_canonical_map = {{ __postfix_sender_canonical_maps | join(", ") }}
+sender_canonical_maps = {{ __postfix_sender_canonical_maps | join(", ") }}
 {% endif %}
