@@ -44,10 +44,10 @@
       changed_when: false
       failed_when: not mydestination.found
 
-    - name: Option inet_interfaces defaults to localhost
+    - name: Option inet_interfaces defaults to all
       ansible.builtin.lineinfile:
         path: /etc/postfix/main.cf
-        regexp: "^inet_interfaces = localhost"
+        regexp: "^inet_interfaces = all"
         state: absent
       check_mode: true
       register: inet_interfaces
