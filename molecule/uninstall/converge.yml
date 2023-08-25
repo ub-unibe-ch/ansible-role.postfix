@@ -5,14 +5,14 @@
   tasks:
     - name: "Install Postfix with defaults on the system"
       ansible.builtin.include_role:
-        name: "unibe_idsys.postfix"
+        name: "unibeid.postfix"
 
     - name: "Flush handlers"
       ansible.builtin.meta: flush_handlers
 
     - name: "Remove Postfix from the system again"
       ansible.builtin.include_role:
-        name: "unibe_idsys.postfix"
+        name: "unibeid.postfix"
       vars:
         postfix_service_state: stopped
         postfix_packages_state: absent

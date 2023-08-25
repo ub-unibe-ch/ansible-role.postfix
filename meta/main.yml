@@ -1,10 +1,10 @@
 galaxy_info:
   role_name: postfix
-  namespace: unibe_idsys
+  namespace: unibeid
   author: Michael Rolli <michael.rolli@unibe.ch>
   description: Manages the postfix service
   company: University of Bern, IT Services Office
-  license: license (BSD, MIT)
+  license: MIT
   min_ansible_version: '2.9'
   platforms:
     - name: EL

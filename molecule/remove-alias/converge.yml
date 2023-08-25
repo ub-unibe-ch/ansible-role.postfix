@@ -5,14 +5,14 @@
   tasks:
     - name: "Set some aliases..."
       ansible.builtin.include_role:
-        name: "unibe_idsys.postfix"
+        name: "unibeid.postfix"
       vars:
         postfix_alias_map:
           root: another-user@test.com
 
     - name: "... and remove them again"
       ansible.builtin.include_role:
-        name: "unibe_idsys.postfix"
+        name: "unibeid.postfix"
       vars:
         postfix_alias_map:
           root: undef
