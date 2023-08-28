@@ -16,6 +16,6 @@
       result_attribute: "mail"
 
   tasks:
-    - name: "Include unibe_idsys.postfix"
+    - name: "Include unibeid.postfix"
       ansible.builtin.include_role:
-        name: "unibe_idsys.postfix"
+        name: "unibeid.postfix"

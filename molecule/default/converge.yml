@@ -8,6 +8,6 @@
         ansible_fqdn: mail.test
         ansible_domain: test
 
-    - name: "Include unibe_idsys.postfix"
+    - name: "Include unibeid.postfix"
       ansible.builtin.include_role:
-        name: "unibe_idsys.postfix"
+        name: "unibeid.postfix"
