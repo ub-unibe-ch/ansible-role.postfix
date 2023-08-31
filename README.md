@@ -193,7 +193,7 @@ passed in as parameters) is always nice for users too:
     - hosts: servers
 
       roles:
-         - unibeid.postifx
+         - unibeid.postfix
 
 <!-- add an example which illustrates a standard usage internally? -->
 
@@ -202,7 +202,7 @@ The following example illustrates how to remove Postfix from the systems again:
     - hosts: servers
 
       roles:
-        - role: unibeid.postifx
+        - role: unibeid.postfix
           vars:
             postfix_service_state: stopped
             postfix_packages_state: absent
