@@ -2,6 +2,7 @@
 # Default postfix packages to install
 postfix_packages:
   - postfix
+  - postfix-ldap
 
 # Name of the postfix systemd service
 postfix_service: postfix
