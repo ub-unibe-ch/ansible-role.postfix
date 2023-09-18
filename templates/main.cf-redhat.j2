@@ -29,7 +29,7 @@
 #
 # The level below is what should be used with new (not upgrade) installs.
 #
-compatibility_level = {{ postfix_compatibility_level }}
+compatibility_level = {{ __postfix_compatibility_level }}
 
 # SOFT BOUNCE
 #
@@ -704,11 +704,11 @@ manpage_directory = /usr/share/man
 # sample_directory: The location of the Postfix sample configuration files.
 # This parameter is obsolete as of Postfix 2.1.
 #
-sample_directory = {{ postfix_sample_directory }}
+sample_directory = {{ __postfix_sample_directory }}
 
 # readme_directory: The location of the Postfix README files.
 #
-readme_directory = {{ postfix_readme_directory }}
+readme_directory = {{ __postfix_readme_directory }}
 
 # TLS CONFIGURATION
 #

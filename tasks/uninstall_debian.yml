@@ -3,7 +3,7 @@
 # stopped and removed from systemd.
 - name: Remove postfix from apt-based system
   ansible.builtin.apt:
-    name: "{{ postfix_packages }}"
+    name: "{{ __postfix_packages }}"
     state: "absent"
     autoremove: true
     purge: true

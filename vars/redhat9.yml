@@ -1,4 +1,4 @@
 ---
-postfix_compatibility_level: "2"
-postfix_readme_directory: "/usr/share/doc/postfix/README_FILES"
-postfix_sample_directory: "/usr/share/doc/postfix/samples"
+__postfix_compatibility_level: "2"
+__postfix_readme_directory: "/usr/share/doc/postfix/README_FILES"
+__postfix_sample_directory: "/usr/share/doc/postfix/samples"

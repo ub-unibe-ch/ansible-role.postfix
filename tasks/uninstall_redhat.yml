@@ -3,14 +3,14 @@
 # stopped and removed from systemd.
 - name: Remove postfix from dnf-based system
   ansible.builtin.dnf:
-    name: "{{ postfix_packages }}"
+    name: "{{ __postfix_packages }}"
     state: "absent"
     autoremove: true
   when: ansible_distribution_version is version('8', '>=')
 
 - name: Remove postfix from yum-based system
   ansible.builtin.yum:
-    name: "{{ postfix_packages }}"
+    name: "{{ __postfix_packages }}"
     state: "absent"
     autoremove: true
   when: ansible_distribution_version is version('8', '<')

@@ -1,14 +1,14 @@
 ---
 # Default postfix packages to install
-postfix_packages:
+__postfix_packages:
   - postfix
   - postfix-ldap
 
 # Name of the postfix systemd service
-postfix_service: postfix
+__postfix_service: postfix
 
 # Default database files
-postfix_alias_path: /etc/aliases
+__postfix_alias_path: /etc/aliases
 
 # sender_canonical related option names and filepaths
 __postfix_sender_canonical_maps: []
