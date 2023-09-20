@@ -25,7 +25,7 @@
 
     - name: Ensure Postfix is started and enabled at boot.
       ansible.builtin.service:
-        name: "{{ postfix_service }}"
+        name: "{{ __postfix_service }}"
         state: "{{ postfix_state }}"
         enabled: "{{ postfix_enabled }}"
 

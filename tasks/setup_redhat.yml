@@ -12,5 +12,5 @@
 
 - name: Install postfix
   ansible.builtin.package:
-    name: "{{ postfix_packages }}"
+    name: "{{ __postfix_packages }}"
     state: "{{ postfix_packages_state }}"

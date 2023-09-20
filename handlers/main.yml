@@ -1,7 +1,7 @@
 ---
 - name: Rebuild alias database
   ansible.builtin.command:
-    cmd: postalias "{{ postfix_alias_path }}"
+    cmd: postalias "{{ __postfix_alias_path }}"
   changed_when: yes
   listen: rebuild_aliases_db
 
@@ -14,14 +14,14 @@
 # Restart postfix service
 - name: Restart postfix service
   ansible.builtin.service:
-    name: "{{ postfix_service }}"
+    name: "{{ __postfix_service }}"
     state: "{{ postfix_restart_state }}"
   listen: "restart-postifx"
   when: postfix_state | default('started') == 'started'
 
 - name: Reload postfix service
   ansible.builtin.service:
-    name: "{{ postfix_service }}"
+    name: "{{ __postfix_service }}"
     state: "reloaded"
   listen: "reload-postfix"
   when: postfix_state | default('started') == 'started'
