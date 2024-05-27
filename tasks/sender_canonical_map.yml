@@ -2,8 +2,8 @@
 - name: Manage mapping entries
   when: postfix_sender_canonicals | length > 0
   notify:
-    - rebuild_sender_canonical_db
-    - reload-postfix
+    - Rebuild_sender_canonical_db
+    - Reload-postfix
   block:
     - name: Prepare template variable
       ansible.builtin.set_fact:
@@ -22,7 +22,7 @@
 - name: Remove mapping files
   when: postfix_sender_canonicals | length == 0
   notify:
-    - reload-postfix
+    - Reload-postfix
   block:
     - name: Remove map file
       ansible.builtin.file:

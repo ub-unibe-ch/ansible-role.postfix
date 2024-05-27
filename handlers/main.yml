@@ -3,25 +3,25 @@
   ansible.builtin.command:
     cmd: postalias "{{ __postfix_alias_path }}"
   changed_when: yes
-  listen: rebuild_aliases_db
+  listen: Rebuild_aliases_db
 
 - name: Rebuild sender_canonical database
   ansible.builtin.command:
     cmd: postmap "{{ __postfix_sender_canonical_path }}"
   changed_when: yes
-  listen: rebuild_sender_canonical_db
+  listen: Rebuild_sender_canonical_db
 
 # Restart postfix service
 - name: Restart postfix service
   ansible.builtin.service:
     name: "{{ __postfix_service }}"
     state: "{{ postfix_restart_state }}"
-  listen: "restart-postifx"
+  listen: Restart-postifx
   when: postfix_state | default('started') == 'started'
 
 - name: Reload postfix service
   ansible.builtin.service:
     name: "{{ __postfix_service }}"
     state: "reloaded"
-  listen: "reload-postfix"
+  listen: Reload-postfix
   when: postfix_state | default('started') == 'started'
