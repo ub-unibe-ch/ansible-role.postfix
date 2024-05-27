@@ -1,0 +1,25 @@
+---
+name: Release announcement
+on:
+  release:
+    types: [published]
+
+jobs:
+  notify:
+    name: Notify new release
+    runs-on: ubuntu-latest
+    if: github.event.release.name != ''
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Notify dedicated teams channel
+        uses: simbo/msteams-message-card-action@v1.4.3
+        with:
+          webhook: ${{ secrets.TEAMS_SYS_WEBHOOK_ANSIBLE_TALK_URI }}
+          title: "New Release for ${{ github.repository }}"
+          message: "Release ${{ github.event.release.name }} for repository ${{ github.repository }} has just been published!"
+          color: "ff6e00"
+          buttons: |
+            Open release notes at GitHub https://github.com/${{ github.repository }}/releases/tag/${{ github.event.release.name }}
