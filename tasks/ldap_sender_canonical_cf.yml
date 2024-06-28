@@ -2,7 +2,7 @@
 - name: Manage configuration parameter file
   when: postfix_sender_canonical_ldap_config.server_host is defined
   notify:
-    - reload-postfix
+    - Reload-postfix
   block:
     - name: Prepare template variable
       ansible.builtin.set_fact:
@@ -21,7 +21,7 @@
 - name: Remove mapping files
   when: postfix_sender_canonical_ldap_config.server_host is not defined
   notify:
-    - reload-postfix
+    - Reload-postfix
   block:
     - name: Remove map file
       ansible.builtin.file:

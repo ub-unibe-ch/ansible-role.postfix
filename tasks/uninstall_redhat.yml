@@ -9,10 +9,9 @@
   when: ansible_distribution_version is version('8', '>=')
 
 - name: Remove postfix from yum-based system
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name: "{{ __postfix_packages }}"
     state: "absent"
-    autoremove: true
   when: ansible_distribution_version is version('8', '<')
 
 - name: Remove configuration files left on the system
