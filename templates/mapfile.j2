@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
 {% for mapping in __postfix_mappings %}
 {% for key, value in mapping.items() %}

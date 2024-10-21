@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
 {% for param, value in __postfix_config_params.items() %}
 {{ param }} = {{ value }}
