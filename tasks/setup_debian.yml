@@ -4,7 +4,8 @@
     that:
       - ansible_distribution == "Ubuntu"
       - ansible_distribution_version is version('20.04', '==') or
-        ansible_distribution_version is version('22.04', '==')
+        ansible_distribution_version is version('22.04', '==') or
+        ansible_distribution_version is version('24.04', '==')
     success_msg: "Version {{ ansible_distribution_version }} is supported."
     fail_msg: "Version {{ ansible_distribution_version }} is not supported."
 
