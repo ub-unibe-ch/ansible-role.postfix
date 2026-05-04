@@ -21,3 +21,7 @@
   ansible.builtin.apt:
     name: "{{ __postfix_packages }}"
     state: "{{ postfix_packages_state }}"
+  retries: 3
+  delay: 10
+  register: apt_result
+  until: apt_result is not failed

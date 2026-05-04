@@ -41,7 +41,7 @@
       check_mode: true
       register: myorigin
       changed_when: false
-      failed_when: myorigin.found
+      failed_when: myorigin.found > 0
 
     - name: Option mydestination defaults to expected default value
       ansible.builtin.lineinfile:
@@ -106,7 +106,7 @@
         state: absent
       check_mode: true
       register: sender_canonical_maps
-      failed_when: sender_canonical_maps.found
+      failed_when: sender_canonical_maps.found > 0
 
     - name: Postfix service is running
       ansible.builtin.wait_for:

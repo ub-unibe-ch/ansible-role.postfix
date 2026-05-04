@@ -11,7 +11,7 @@
 
     - name: Add table to sender_canonical_map in main.cf
       ansible.builtin.set_fact:
-        __postfix_sender_canonical_maps: "{{ __postfix_sender_canonical_maps + ['hash:{{ __postfix_sender_canonical_path }}'] }}"
+        __postfix_sender_canonical_maps: "{{ __postfix_sender_canonical_maps + ['hash:' + __postfix_sender_canonical_path] }}"
 
     - name: "Manage entries in {{ __postfix_sender_canonical_path }}"
       ansible.builtin.template:

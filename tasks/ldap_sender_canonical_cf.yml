@@ -10,7 +10,7 @@
 
     - name: Add table to sender_canonical_map in main.cf
       ansible.builtin.set_fact:
-        __postfix_sender_canonical_maps: "{{ __postfix_sender_canonical_maps + ['ldap:{{ __postfix_sender_canonical_ldap_config_path }}'] }}"
+        __postfix_sender_canonical_maps: "{{ __postfix_sender_canonical_maps + ['ldap:' + __postfix_sender_canonical_ldap_config_path] }}"
 
     - name: "Manage entries in {{ __postfix_sender_canonical_ldap_config_path }}"
       ansible.builtin.template:
