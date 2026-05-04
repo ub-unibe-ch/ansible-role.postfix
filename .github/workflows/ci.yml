@@ -35,7 +35,7 @@ jobs:
     strategy:
       matrix:
         distro: [ubuntu2204, ubuntu2404]
-        scenario: [default, local, lookup-tables]
+        scenario: [default, local, lookup-tables, uninstall]
         include:
           - playbook: converge.yml
 
