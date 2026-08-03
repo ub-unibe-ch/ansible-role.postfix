@@ -1,0 +1,44 @@
+---
+name: Build 26.04
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+    # See https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: [ubuntu2604]
+        playbook: [converge.yml]
+        scenario:
+          - default
+          - local
+          - lookup-tables
+          - uninstall
+
+    steps:
+      - name: Checkout the codebase
+        uses: actions/checkout@v6
+
+      - name: Setup Python 3
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install test dependencies.
+        run: pip3 install -r requirements.txt
+
+      - name: Run Molecule tests.
+        run: molecule test -s ${{ matrix.scenario }}
+        env:
+          PY_COLORS: "1"
+          ANSIBLE_FORCE_COLOR: "1"
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+          MOLECULE_PLAYBOOK: ${{ matrix.playbook }}
