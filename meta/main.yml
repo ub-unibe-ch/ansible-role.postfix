@@ -14,9 +14,9 @@ galaxy_info:
         - '9'
     - name: Ubuntu
       versions:
-        - "22.04"
-        - "24.04"
-        - "26.04"
+        - jammy
+        - noble
+        - resolute
   galaxy_tags:
     - postfix
     - mta
