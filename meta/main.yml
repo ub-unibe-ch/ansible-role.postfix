@@ -14,7 +14,9 @@ galaxy_info:
         - '9'
     - name: Ubuntu
       versions:
-        - all
+        - "22.04"
+        - "24.04"
+        - "26.04"
   galaxy_tags:
     - postfix
     - mta
