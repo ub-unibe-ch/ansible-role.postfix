@@ -3,10 +3,9 @@
   hosts: all
 
   tasks:
-    - name: "Set ansible_fqdn and ansible_domain something static for the tests"
+    - name: "Set the fqdn and domain facts to something static for the tests"
       ansible.builtin.set_fact:
-        ansible_fqdn: mail.test
-        ansible_domain: test
+        ansible_facts: "{{ ansible_facts | combine({'fqdn': 'mail.test', 'domain': 'test'}) }}"
 
     - name: "Include unibeid.postfix"
       ansible.builtin.include_role:

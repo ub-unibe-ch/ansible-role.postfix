@@ -11,9 +11,9 @@
       check_mode: true
       register: package
       failed_when: package is changed
-      when: not (ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7')
+      when: not (ansible_facts.os_family == 'RedHat' and ansible_facts.distribution_major_version == '7')
 
-    - name: Option myhostname defaults to ansible_fqdn
+    - name: Option myhostname defaults to the fqdn fact
       ansible.builtin.lineinfile:
         path: /etc/postfix/main.cf
         regexp: "^myhostname = mail.test"

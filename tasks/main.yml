@@ -3,7 +3,7 @@
   when: postfix_packages_state != "absent"
   block:
     - name: Include OS-specific tasks
-      ansible.builtin.include_tasks: "setup_{{ ansible_os_family | lower }}.yml"
+      ansible.builtin.include_tasks: "setup_{{ ansible_facts.os_family | lower }}.yml"
 
     - name: Proccess sender_canonical hash map
       ansible.builtin.import_tasks:
@@ -15,7 +15,7 @@
 
     - name: Create /etc/postfix/main.cf
       ansible.builtin.template:
-        src: "main.cf-{{ ansible_os_family | lower }}.j2"
+        src: "main.cf-{{ ansible_facts.os_family | lower }}.j2"
         dest: /etc/postfix/main.cf
         owner: root
         group: root
@@ -39,5 +39,5 @@
       notify: Rebuild_aliases_db
 
 - name: Postfix is going to be removed from the system
-  ansible.builtin.include_tasks: "uninstall_{{ ansible_os_family | lower }}.yml"
+  ansible.builtin.include_tasks: "uninstall_{{ ansible_facts.os_family | lower }}.yml"
   when: postfix_packages_state == "absent"
