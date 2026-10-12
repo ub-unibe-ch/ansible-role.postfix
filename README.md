@@ -217,7 +217,7 @@ This role has been written for and tested on and is therefore compatible with:
 
 * CentOS-7
 * Rocky-8, Rocky-9
-* Ubuntu-22.04
+* Ubuntu-22.04, Ubuntu-24.04, Ubuntu-26.04
 
 ## License
 
