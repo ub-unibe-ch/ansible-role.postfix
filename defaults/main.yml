@@ -1,7 +1,7 @@
 ---
 
 # The myhostname parameter specifies the internet hostname of this mail system.
-postfix_myhostname: "{{ ansible_fqdn }}"
+postfix_myhostname: "{{ ansible_facts.fqdn }}"
 
 # The mydomain parameter specifies the local internet domain name.
 postfix_mydomain: "undef"

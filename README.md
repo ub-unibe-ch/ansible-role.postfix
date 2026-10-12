@@ -20,11 +20,11 @@ Available variables are listed below, along with default values (see also `defau
 Variables of the form `$varname` are literally transported to the config file as
 Postfix is internally interpolating these on service startup. In other words,
 technically, setting an `postfix_myorigin` to "$nyhostname" has the very same outcome
-as setting it to `"{{ ansible_fqdn }}"`.
+as setting it to `"{{ ansible_facts.fqdn }}"`.
 
 ### postfix_myhostname
 
-    postfix_myhostname: "{{ ansible_fqdn }}"
+    postfix_myhostname: "{{ ansible_facts.fqdn }}"
 
 The `myhostname` parameter specifies the internet hostname of this mail system.
 The default is to use the fully-qualified domain name
